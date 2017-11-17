@@ -14,19 +14,17 @@
 
 package com.googlesource.gerrit.plugins.its.redmine;
 
-import java.io.IOException;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.pgm.init.api.AllProjectsConfig;
 import com.google.gerrit.pgm.init.api.AllProjectsNameOnInitProvider;
+import com.google.gerrit.pgm.init.api.ConsoleUI;
 import com.google.gerrit.pgm.init.api.InitFlags;
 import com.google.gerrit.pgm.init.api.Section;
-import com.google.gerrit.pgm.init.api.ConsoleUI;
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.its.base.its.InitIts;
 import com.googlesource.gerrit.plugins.its.base.validation.ItsAssociationPolicy;
+import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 /** Initialize the GitRepositoryManager configuration section. */
@@ -42,9 +40,13 @@ class InitRedmine extends InitIts {
   private String redmineApiKey;
 
   @Inject
-  InitRedmine(@PluginName String pluginName, ConsoleUI ui,
-      Section.Factory sections, AllProjectsConfig allProjectsConfig,
-      AllProjectsNameOnInitProvider allProjects, InitFlags flags) {
+  InitRedmine(
+      @PluginName String pluginName,
+      ConsoleUI ui,
+      Section.Factory sections,
+      AllProjectsConfig allProjectsConfig,
+      AllProjectsNameOnInitProvider allProjects,
+      InitFlags flags) {
     super(pluginName, "Redmine", ui, allProjectsConfig, allProjects);
     this.pluginName = pluginName;
     this.sections = sections;
@@ -65,7 +67,6 @@ class InitRedmine extends InitIts {
     this.redmine = sections.get(pluginName, null);
     this.redmineComment = sections.get(COMMENT_LINK_SECTION, pluginName);
 
-
     do {
       enterRedmineConnectivity();
     } while (redmineUrl != null
@@ -78,8 +79,8 @@ class InitRedmine extends InitIts {
     ui.header("Redmine issue-tracking association");
     redmineComment.string("Redmine issue number regex", "match", "#([1-9][0-9]*)");
     redmineComment.set("html", String.format("<a href=\"%s/issues/$1\">#$1</a>", redmineUrl));
-    redmineComment.select("Issue number enforced in commit message","association",
-        ItsAssociationPolicy.SUGGESTED);
+    redmineComment.select(
+        "Issue number enforced in commit message", "association", ItsAssociationPolicy.SUGGESTED);
   }
 
   public void enterRedmineConnectivity() {
@@ -92,7 +93,7 @@ class InitRedmine extends InitIts {
   private boolean isRedmineConnectSuccessful() {
     ui.message("Checking Redmine connectivity ... ");
     try {
-      RedmineClient client = new RedmineClient(redmineUrl,redmineApiKey);
+      RedmineClient client = new RedmineClient(redmineUrl, redmineApiKey);
       client.isRedmineConnectSuccessful();
       ui.message("[OK]\n");
       return true;

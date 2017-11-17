@@ -14,103 +14,98 @@
 //
 package com.googlesource.gerrit.plugins.its.redmine;
 
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.taskadapter.redmineapi.NotFoundException;
+import com.taskadapter.redmineapi.RedmineException;
 import com.taskadapter.redmineapi.RedmineManager;
 import com.taskadapter.redmineapi.RedmineManagerFactory;
-import com.taskadapter.redmineapi.UserManager;
-import com.taskadapter.redmineapi.bean.User;
 import com.taskadapter.redmineapi.bean.Issue;
 import com.taskadapter.redmineapi.bean.IssueFactory;
 import com.taskadapter.redmineapi.bean.IssueStatus;
-
-import com.taskadapter.redmineapi.RedmineException;
-import com.taskadapter.redmineapi.NotFoundException;
+import com.taskadapter.redmineapi.bean.User;
+import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RedmineClient {
-	private static final String GERRIT_CONFIG_URL = "url";
-	private static final String GERRIT_CONFIG_API_KEY = "apiKey";
-	private RedmineManager mgr;
+  private static final String GERRIT_CONFIG_URL = "url";
+  private static final String GERRIT_CONFIG_API_KEY = "apiKey";
+  private RedmineManager mgr;
 
-	private Logger log = LoggerFactory.getLogger(RedmineClient.class);
+  private Logger log = LoggerFactory.getLogger(RedmineClient.class);
 
-	private RedmineClient() {
-		throw new UnsupportedOperationException();
-	}
+  private RedmineClient() {
+    throw new UnsupportedOperationException();
+  }
 
-	public RedmineClient(final String url, String apiAccessKey) {
-		mgr = RedmineManagerFactory.createWithApiKey(url, apiAccessKey);
-	}
+  public RedmineClient(final String url, String apiAccessKey) {
+    mgr = RedmineManagerFactory.createWithApiKey(url, apiAccessKey);
+  }
 
-	public void isRedmineConnectSuccessful() throws RedmineException {
-		mgr.getUserManager().getCurrentUser();
-	}
+  public void isRedmineConnectSuccessful() throws RedmineException {
+    mgr.getUserManager().getCurrentUser();
+  }
 
-	public void updateIssue(final String issueId, final String comment) throws IOException {
-		try {
-			Issue issue = IssueFactory.create(convertIssueId(issueId));
-			issue.setNotes(comment);
-			mgr.getIssueManager().update(issue);
-		} catch (Exception e) {
-			throw new IOException(e);
-		}
-	}
+  public void updateIssue(final String issueId, final String comment) throws IOException {
+    try {
+      Issue issue = IssueFactory.create(convertIssueId(issueId));
+      issue.setNotes(comment);
+      mgr.getIssueManager().update(issue);
+    } catch (Exception e) {
+      throw new IOException(e);
+    }
+  }
 
-	public boolean exists(final String issueId) throws IOException {
-		try {
-			return mgr.getIssueManager().getIssueById(convertIssueId(issueId)) != null;
-		} catch (NotFoundException e) {
-			if (log.isDebugEnabled()) {
-				log.debug("Issue " + issueId + " doesn't exit: " + e.getMessage(), e);
-			}
-			return false;
-		} catch (RedmineException e) {
-			log.error(e.getMessage(), e);
-			throw new IOException(e);
-		}
-	}
+  public boolean exists(final String issueId) throws IOException {
+    try {
+      return mgr.getIssueManager().getIssueById(convertIssueId(issueId)) != null;
+    } catch (NotFoundException e) {
+      if (log.isDebugEnabled()) {
+        log.debug("Issue " + issueId + " doesn't exit: " + e.getMessage(), e);
+      }
+      return false;
+    } catch (RedmineException e) {
+      log.error(e.getMessage(), e);
+      throw new IOException(e);
+    }
+  }
 
-	public void doPerformAction(final String issueKey, final String actionName)
-			throws IOException, RedmineException {
-		Integer statusId = getStatusId(actionName);
-		if (statusId != null) {
+  public void doPerformAction(final String issueKey, final String actionName)
+      throws IOException, RedmineException {
+    Integer statusId = getStatusId(actionName);
+    if (statusId != null) {
       log.debug("Executing action " + actionName + " on issue " + issueKey);
       Issue issue = IssueFactory.create(convertIssueId(issueKey));
       issue.setStatusId(statusId);
       mgr.getIssueManager().update(issue);
-	  } else {
+    } else {
       log.error("Action " + actionName + " not found within available actions");
       throw new RedmineException("Action " + actionName + " not executable on issue " + issueKey);
     }
-	}
+  }
 
-	public String healthCheckAccess() throws IOException {
-		try {
-	    User user = mgr.getUserManager().getCurrentUser();
-	    final String result =
-	        "{\"status\"=\"ok\",\"username\"=\"" + user.getLogin() + "\"}";
-	    log.debug("Healtheck on access result: {}", result);
-	    return result;
-	  } catch (RedmineException e) {
-	  	throw new IOException(e);
-	  }
+  public String healthCheckAccess() throws IOException {
+    try {
+      User user = mgr.getUserManager().getCurrentUser();
+      final String result = "{\"status\"=\"ok\",\"username\"=\"" + user.getLogin() + "\"}";
+      log.debug("Healtheck on access result: {}", result);
+      return result;
+    } catch (RedmineException e) {
+      throw new IOException(e);
+    }
   }
 
   public String healthCheckSysinfo(final String url) throws IOException {
-  	try {
-	    mgr.getUserManager().getCurrentUser();
-	    final String result =
-	        "{\"status\"=\"ok\",\"system\"=\"Redmine\",\"url\"=\"" + url + "\"}";
-	    log.debug("Healtheck on sysinfo result: {}", result);
-	    return result;
+    try {
+      mgr.getUserManager().getCurrentUser();
+      final String result = "{\"status\"=\"ok\",\"system\"=\"Redmine\",\"url\"=\"" + url + "\"}";
+      log.debug("Healtheck on sysinfo result: {}", result);
+      return result;
     } catch (RedmineException e) {
-	  	throw new IOException(e);
-	  }
+      throw new IOException(e);
+    }
   }
 
-	private Integer getStatusId(String actionName) throws RedmineException {
+  private Integer getStatusId(String actionName) throws RedmineException {
     for (IssueStatus issueStatus : mgr.getIssueManager().getStatuses()) {
       if (issueStatus.getName().equalsIgnoreCase(actionName)) {
         return issueStatus.getId();
@@ -130,5 +125,4 @@ public class RedmineClient {
   private boolean issueIdIsValid(String issueId) {
     return issueId != null && issueId.matches("^\\d+$");
   }
-
 }
