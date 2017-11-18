@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac40466b_79dde75a",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-11-18T15:21:00Z",
+      "side": 1,
+      "message": "Hmm, this configuation is done in its-base and when you build with its-base it will correctly create this page for this plugin.\n\nSee its-phabricator for example\n\nhttps://gerrit.googlesource.com/plugins/its-phabricator/+/refs/heads/master/src/main/resources/Documentation",
+      "revId": "7ffe747d69c337d428e799dc570d830fb987db86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
