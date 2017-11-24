@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "321fefa7_82971d93",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/its/redmine/InitRedmine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1056386
+      },
+      "writtenOn": "2017-11-24T02:48:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1574b6c_ade5f297",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "7ffe747d69c337d428e799dc570d830fb987db86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "531b1639_0c4feada",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-23T02:10:40Z",
       "side": 1,
       "message": "Redmine?",
+      "range": {
+        "startLine": 2,
+        "startChar": 44,
+        "endLine": 2,
+        "endChar": 52
+      },
+      "revId": "7ffe747d69c337d428e799dc570d830fb987db86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e070e046_8d530091",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1056386
+      },
+      "writtenOn": "2017-11-24T02:48:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "531b1639_0c4feada",
       "range": {
         "startLine": 2,
         "startChar": 44,
