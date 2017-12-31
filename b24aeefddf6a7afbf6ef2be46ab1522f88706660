@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "320cf5d6_750f162d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/its/redmine/RedmineClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-12-31T01:05:44Z",
+      "side": 1,
+      "message": "Use built-in string formatting instead:\n\n   \"Issue {} doesn\u0027t exit: \", e.getMessage(), e\n\nAccording to Sonar:\n  \"Passing concatenated strings into a logging method can incur a needless\n   performance hit because the concatenation will be performed every time\n   the method is called, whether or not the log level is low enough to show\n   the message.\"",
+      "range": {
+        "startLine": 63,
+        "startChar": 18,
+        "endLine": 63,
+        "endChar": 76
+      },
+      "revId": "b24aeefddf6a7afbf6ef2be46ab1522f88706660",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c40806ee_ba3c564d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/its/redmine/RedmineClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-12-31T01:05:44Z",
+      "side": 1,
+      "message": "Same as above:\n\n  \"Executing action {} on issue {}\", actionName, \"issueKey",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 74
+      },
+      "revId": "b24aeefddf6a7afbf6ef2be46ab1522f88706660",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf3aff70_858e7d35",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/its/redmine/RedmineClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-12-31T01:05:44Z",
+      "side": 1,
+      "message": "Same as above:\n\n  \"Action {} not found within available actions\", actionName",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 79
+      },
+      "revId": "b24aeefddf6a7afbf6ef2be46ab1522f88706660",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61cd85d6_3e7567c9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/its/redmine/RedmineItsFacade.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-12-31T01:05:44Z",
+      "side": 1,
+      "message": "This means the call is never retried, right? Wouldn\u0027t be better then to just remove the retrying code?",
+      "range": {
+        "startLine": 195,
+        "startChar": 4,
+        "endLine": 195,
+        "endChar": 17
+      },
+      "revId": "b24aeefddf6a7afbf6ef2be46ab1522f88706660",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
