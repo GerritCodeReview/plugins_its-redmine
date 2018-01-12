@@ -22,6 +22,30 @@
       "revId": "0744ac779657a94db0b288f35649dba33762332e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "122e2546_9bf0bd7f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/its/redmine/RedmineItsFacade.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1056386
+      },
+      "writtenOn": "2018-01-12T01:17:19Z",
+      "side": 1,
+      "message": "Yes,I think check the type of exception is necessary.I\u0027ll add some conditions later",
+      "parentUuid": "22eb2b19_5b7352e5",
+      "range": {
+        "startLine": 194,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 3
+      },
+      "revId": "0744ac779657a94db0b288f35649dba33762332e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
